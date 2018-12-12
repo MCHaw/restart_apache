@@ -9,6 +9,8 @@ then
     exit 1  
     fi
 
+if [ "$COMMAND" == "reload" ] || [ "$COMMAND" == "restart" ]
+then
 # Move the current execution state to the proper directory
 cd /etc/apache2/sites-available
 
@@ -19,3 +21,8 @@ sudo service apache2 "$COMMAND"
 # Enable a vhost configuration
 sudo a2ensite "$CONFIG"
 sudo service apache2 "$COMMAND"
+
+else
+    echo "ERROR: $COMMAND is nota valid service directive {restart|reload}"
+    exit 1
+fi
